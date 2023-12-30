@@ -21,7 +21,6 @@ print(check.count(1))
 
 N = int(input())
 
-
 i = 1
 ans = 0
 while i*i <= N:
