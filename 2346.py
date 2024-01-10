@@ -1,42 +1,21 @@
 import sys
+from collections import deque
+
 input = sys.stdin.readline
 
 N = int(input())
 
-num = list(map(int, input().split()))
-num_copied = num[:]
+deq = deque(enumerate(map(int, input().split())))
 ans = []
 
-idx = 0
-for i in range(N):
-    
-    if num[idx] > 0:
-        idx += num[idx]
-    else:
-        idx -= num[idx]
+
+while deq:
+    idx, num = deq.popleft()
     ans.append(idx + 1)
-    del num_copied[idx]
     
-    num[idx]
-
-
-print(ans)
-
-
-idx = 0
-del num_copied[0]
-
-for i in range(N-1):
-    if num[idx] > 0:
-        idx += num[idx]
-        ans.append(idx + 1)
-        del num_copied[idx - 1]
-        idx = idx - i
+    if num > 0:
+        deq.rotate(-(num - 1))
     else:
-        idx -= num[idx]
-        ans.append(idx + 1 + N)
-        del num_copied[idx]
-        idx = idx
-    
+        deq.rotate(-num)
 
-
+print(*ans)
