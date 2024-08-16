@@ -1,43 +1,29 @@
 import sys
 input = sys.stdin.readline
 
-
-    
 while True:
-    brackets = input()
-    
-    if brackets == ".":
+    brackets = list(input())
+    if brackets[0] == ".":
         break
 
-
-    # if brackets[0] == ')' or brackets[0] == ']':
-    #     return "no"
-    
-    
     stack = []
-    stack_ = []
+    ans = True
+    
     for bracket in brackets:
-        if '(' == bracket:
+        if '(' == bracket or '[' == bracket:
             stack.append(bracket)
         elif ')' == bracket:
-            if len(stack) == 0:
-                print("no")
+            if len(stack) == 0 or stack[-1] != '(':
+                ans = False
+                break
+            stack.pop()
+        elif ']' == bracket:
+            if len(stack) == 0 or stack[-1] != '[':
+                ans = False
+                break
             stack.pop()
             
-        elif '[' == bracket:
-            stack_.append(bracket)
-        elif ']' == bracket:
-            if len(stack_) == 0:
-                print("no")
-            stack_.pop()
-
-            
-    if (len(stack) == 0) and (len(stack_) == 0):
+    if (len(stack) == 0) and ans == True:
         print("yes")
     else:
         print("no")
-    
-
-
-        
-            
